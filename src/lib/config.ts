@@ -13,6 +13,11 @@ export const config = {
   revalidate: Math.max(30, Number(process.env.SSS_REVALIDATE) || 300),
   revalidateSecret: clean(process.env.REVALIDATE_SECRET),
   siteUrl: (clean(process.env.SITE_URL) || "http://localhost:3000").replace(/\/+$/, ""),
+  /**
+   * Business API key (sss_…, SSS → Business → API). Only needed to read STYLE.md,
+   * which SSS does not publish. Server-only, never sent to the browser.
+   */
+  apiKey: clean(process.env.SSS_API_KEY),
   /** Overrides the assistant key published with the showcase. */
   botKey: clean(process.env.SSS_BOT_KEY),
 };

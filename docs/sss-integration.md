@@ -72,7 +72,23 @@ The form shows only when the business keeps the contact form on in SSS → Showc
 `GET | POST | DELETE /api/v1/bot/:publicKey/messages`, called from the browser. See
 [assistant.md](assistant.md).
 
-## 4. Metadata
+## 4. STYLE.md (optional, needs a key)
+
+SSS does not publish the business's `STYLE.md` (brand voice and rules), so reading it
+needs a business **API key**: SSS → Business → API → create a key, then
+`SSS_API_KEY=sss_…` on the server. Without it, `getStyle()` returns an empty string and
+nothing breaks.
+
+```ts
+import { getStyle } from "@/lib/sss";
+const style = await getStyle();     // "GET /api/v1/stores/:slug/docs/style", cached like the showcase
+```
+
+In a markdown page, `{{style}}` is replaced by it. Only add it to a page if the business
+really wants its style guide public. The key has owner-level access to that business, so
+keep it in the server environment and never in client components.
+
+## 5. Metadata
 
 Each entity carries a free `metadata` object that SSS never interprets. This site reads
 a few conventional keys from it. See [metadata.md](metadata.md).

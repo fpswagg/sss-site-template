@@ -33,6 +33,7 @@ Two placeholders are filled in from SSS:
 | --- | --- |
 | `{{about}}` | The about text written in SSS → Showcase |
 | `{{business}}` | The business name |
+| `{{style}}` | The business's STYLE.md (needs `SSS_API_KEY`, see [sss-integration.md](sss-integration.md#4-stylemd-optional-needs-a-key)) |
 
 The sample `about.md` uses `{{about}}`, so the owner keeps editing that text in SSS.
 

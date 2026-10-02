@@ -119,6 +119,25 @@ export const getSite = cache(async (): Promise<SiteData> => {
 });
 
 /**
+ * The business's STYLE.md (brand voice, colors, rules), or "" when it cannot be read.
+ * SSS does not publish it, so this needs SSS_API_KEY; without a key (or on demo data)
+ * it returns "" and nothing breaks. Cached like the showcase.
+ */
+export const getStyle = cache(async (): Promise<string> => {
+  if (!config.storeSlug || !config.apiKey) return "";
+  try {
+    const res = await fetch(`${config.apiUrl}/api/v1/stores/${encodeURIComponent(config.storeSlug)}/docs/style`, {
+      headers: { accept: "application/json", authorization: `Bearer ${config.apiKey}` },
+      next: { revalidate: config.revalidate, tags: [SSS_TAG] },
+    });
+    const body = (await res.json().catch(() => null)) as { data?: { markdown?: unknown } } | null;
+    return res.ok && typeof body?.data?.markdown === "string" ? body.data.markdown : "";
+  } catch {
+    return "";
+  }
+});
+
+/**
  * Sends a contact-form message to SSS. It lands in the business's SSS
  * notifications and, with createClient, becomes a client (lead) in SASTO.
  */

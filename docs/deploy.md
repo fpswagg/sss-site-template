@@ -12,6 +12,7 @@ SSS API.
 | `SITE_URL` | yes in production | Public URL, used in the sitemap, canonical and social links |
 | `SSS_REVALIDATE` | no | Cache seconds, default 300, minimum 30 |
 | `REVALIDATE_SECRET` | recommended | Enables `POST /api/revalidate` |
+| `SSS_API_KEY` | no | Business API key, only to read STYLE.md |
 | `SSS_BOT_KEY` | no | Use another assistant key than the published one |
 
 ## Vercel

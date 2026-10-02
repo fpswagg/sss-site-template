@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPage, getPages } from "@/lib/content";
-import { getSite } from "@/lib/sss";
+import { getSite, getStyle } from "@/lib/sss";
 import { excerpt, renderMarkdown } from "@/lib/markdown";
 import { PageHeader } from "@/components/ui";
 
 /**
  * Any markdown file in content/pages becomes a page: content/pages/delivery.md → /delivery.
- * In a page, the line {{about}} is replaced by the about text written in SSS → Showcase.
+ * In a page, {{about}} is replaced by the about text written in SSS → Showcase, and {{style}}
+ * by the business's STYLE.md (needs SSS_API_KEY, see docs/sss-integration.md).
  */
 type Props = { params: Promise<{ slug: string }> };
 
@@ -26,7 +27,9 @@ export default async function MarkdownPage({ params }: Props) {
   const page = await getPage((await params).slug);
   if (!page) notFound();
   const { showcase, business } = await getSite();
+  const style = page.body.includes("{{style}}") ? await getStyle() : "";
   const body = page.body
+    .replaceAll("{{style}}", style)
     .replaceAll("{{about}}", showcase.aboutMarkdown || business.description || "")
     .replaceAll("{{business}}", business.name);
   return (
