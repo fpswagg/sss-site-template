@@ -1,0 +1,30 @@
+import type { Design } from "./types";
+
+/** SSS defaults for a showcase design (server/src/modules/stock/showcase-public.ts). */
+export const DEFAULT_DESIGN: Design = {
+  font: "modern",
+  hero: "banner",
+  cards: "soft",
+  announcement: "",
+  announcementLink: "",
+  cta: "whatsapp",
+  ctaLabel: "",
+  ctaLink: "",
+  showPrices: true,
+  showStock: false,
+  whatsappOrder: true,
+  floatingChat: true,
+  search: true,
+  socials: {},
+  hours: [],
+  faq: [],
+  testimonials: [],
+  stats: [],
+  ctaBanner: { title: "", text: "", button: "", link: "" },
+  buttons: "pill",
+  heroAlign: "left",
+  heroOverlay: 55,
+  productColumns: 3,
+  logoShape: "square",
+  footerText: "",
+};
