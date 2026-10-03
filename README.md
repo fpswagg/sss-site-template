@@ -16,6 +16,7 @@ plus a few markdown files of your own.
 | Contact form → message + new client (lead) | Sent to SSS: lands in Feedback, notifications and Clients |
 | Featured items, badges, hidden items, specs, buy links | Entity **metadata** (SSS → Settings → Developer mode) |
 | About, delivery, legal pages, news posts | Markdown in [`content/`](content) |
+| **Sign in with SSS** (optional `/account`) | SSS accounts, through OAuth: [docs/oauth.md](docs/oauth.md) |
 
 Change something in SSS and the site follows within minutes (or right away, see
 [revalidation](docs/sss-integration.md#freshness)).
@@ -48,6 +49,7 @@ try everything first. To show a real business:
 | --- | --- |
 | [docs/sss-integration.md](docs/sss-integration.md) | Understand which SSS endpoints are used, caching, and security |
 | [docs/assistant.md](docs/assistant.md) | Set up and customize the AI assistant |
+| [docs/oauth.md](docs/oauth.md) | Let visitors sign in with their SSS account (OAuth), and call SSS as them |
 | [docs/metadata.md](docs/metadata.md) | Use entity metadata to feature, badge, hide or enrich items |
 | [docs/content.md](docs/content.md) | Write pages and news posts in markdown |
 | [docs/customizing.md](docs/customizing.md) | Change the look, add sections or pages |

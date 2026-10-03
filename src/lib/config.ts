@@ -18,6 +18,16 @@ export const config = {
    * which SSS does not publish. Server-only, never sent to the browser.
    */
   apiKey: clean(process.env.SSS_API_KEY),
+  /**
+   * "Sign in with SSS" (OAuth): the app registered in SSS → Business → API → Sign in with SSS.
+   * Empty client id = the feature is off (no /account page, no button).
+   */
+  oauthClientId: clean(process.env.SSS_OAUTH_CLIENT_ID),
+  oauthClientSecret: clean(process.env.SSS_OAUTH_CLIENT_SECRET),
+  /** Space-separated scopes asked for (profile is always given). */
+  oauthScope: clean(process.env.SSS_OAUTH_SCOPE) || "profile email",
+  /** Signs this site's cookies (the visitor's sign-in). At least 32 random characters in production. */
+  sessionSecret: clean(process.env.SESSION_SECRET),
   /** Overrides the assistant key published with the showcase. */
   botKey: clean(process.env.SSS_BOT_KEY),
 };

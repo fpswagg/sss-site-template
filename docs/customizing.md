@@ -13,10 +13,12 @@ src/
     blog/ [slug]/         markdown posts and pages
     contact/              contact page; api/contact forwards to SSS
     api/revalidate/       refresh the SSS cache on demand
+    account/ auth/sss/    Sign in with SSS: account page, sign-in, callback, sign-out (docs/oauth.md)
     sitemap.ts robots.ts  SEO
   components/             header, footer, cards, catalogue, assistant, contact form…
   lib/
-    sss.ts                SSS client (fetch, cache, normalize)  ← the only place that calls SSS
+    sss.ts                SSS client (fetch, cache, normalize)  ← the only place that calls SSS for the business
+    sss-auth.ts           Sign in with SSS: OAuth flow, encrypted session cookie, sssFetch as the visitor
     types.ts              shapes of the SSS payload
     meta.ts               metadata conventions (featured, badge…)
     theme.ts              SSS themes and fonts → CSS variables

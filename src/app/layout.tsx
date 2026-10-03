@@ -4,6 +4,7 @@ import "./globals.css";
 import { config } from "@/lib/config";
 import { getSite, SssUnavailableError } from "@/lib/sss";
 import { getPages, getPosts } from "@/lib/content";
+import { authEnabled } from "@/lib/sss-auth";
 import { siteOverrides } from "@/lib/meta";
 import { themeVars } from "@/lib/theme";
 import { Header } from "@/components/header";
@@ -57,6 +58,8 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     ...pages.filter((p) => p.nav).map((p) => ({ href: `/${p.slug}`, label: p.title })),
     ...(posts.length ? [{ href: "/blog", label: "News" }] : []),
     { href: "/contact", label: "Contact" },
+    // Sign in with SSS (docs/oauth.md). A plain link: reading the visitor here would make every page dynamic.
+    ...(authEnabled() ? [{ href: "/account", label: "Account" }] : []),
   ];
 
   const showAssistant = Boolean(site.assistant) && !overrides.assistantOff;

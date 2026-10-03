@@ -14,6 +14,9 @@ SSS API.
 | `REVALIDATE_SECRET` | recommended | Enables `POST /api/revalidate` |
 | `SSS_API_KEY` | no | Business API key, only to read STYLE.md |
 | `SSS_BOT_KEY` | no | Use another assistant key than the published one |
+| `SSS_OAUTH_CLIENT_ID` / `SSS_OAUTH_CLIENT_SECRET` | no | Sign in with SSS ([oauth.md](oauth.md)). Empty = off |
+| `SSS_OAUTH_SCOPE` | no | Default `profile email` |
+| `SESSION_SECRET` | with sign-in | 32+ random characters, encrypts the sign-in cookie |
 
 ## Vercel
 
@@ -38,6 +41,8 @@ Example with pm2: `pm2 start npm --name koto-site -- start`.
 - [ ] `SITE_URL` is the real domain
 - [ ] `content/pages/privacy.md` is replaced with the business's real policy
 - [ ] A test message from `/contact` shows up in SSS Feedback, notifications and Clients
+- [ ] With Sign in with SSS: the production redirect URL `{SITE_URL}/auth/sss/callback` is
+      registered in SSS, `SESSION_SECRET` is set, and signing in from `/account` works
 - [ ] `REVALIDATE_SECRET` is set, and the owner knows the refresh link
 
 ## One template, many businesses

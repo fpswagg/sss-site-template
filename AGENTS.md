@@ -6,8 +6,10 @@ SSS is the backend: the site has no database and must not grow one.
 ## Rules
 
 1. **All SSS calls go through `src/lib/sss.ts`.** Pages call `getSite()` (cached,
-   deduplicated) and never `fetch` SSS themselves. The only exception is the assistant
-   widget, which calls the public bot API from the browser.
+   deduplicated) and never `fetch` SSS themselves. The exceptions: the assistant
+   widget, which calls the public bot API from the browser, and "Sign in with SSS",
+   which lives in `src/lib/sss-auth.ts` (docs/oauth.md). Calls made *as a visitor* go
+   through its `sssFetch`; tokens stay in the encrypted cookie and never reach the browser.
 2. **SSS answers browsers on other sites only for `/api/v1/bot/*`.** Anything else (the
    showcase, the contact form) must run on the server: in a Server Component or a route
    handler.
