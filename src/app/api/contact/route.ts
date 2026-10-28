@@ -5,7 +5,7 @@ import { sendContact, SssUnavailableError } from "@/lib/sss";
  * Contact form → SSS (POST /api/v1/stores/:slug/showcase/contact). Done on the
  * server because SSS does not accept that call from other websites' browsers.
  */
-// Best-effort per-visitor limit (per server instance): 5 messages / 10 minutes.
+// Quick per-instance limit (5 / 10 min). The real limits (per visitor and per business) are enforced by SSS.
 const WINDOW_MS = 10 * 60_000;
 const LIMIT = 5;
 const hits = new Map<string, number[]>();
@@ -37,7 +37,7 @@ export async function POST(request: Request) {
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return NextResponse.json({ error: "That email does not look right." }, { status: 400 });
 
   try {
-    const result = await sendContact({ name, message, ...(email ? { email } : {}), ...(phone ? { phone } : {}) });
+    const result = await sendContact({ name, message, ...(email ? { email } : {}), ...(phone ? { phone } : {}) }, ip === "local" ? undefined : ip);
     return NextResponse.json({ ok: true, demo: result.demo });
   } catch (err) {
     const status = err instanceof SssUnavailableError && err.status < 500 ? err.status : 502;

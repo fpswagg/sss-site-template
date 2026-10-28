@@ -141,11 +141,15 @@ export const getStyle = cache(async (): Promise<string> => {
  * Sends a contact-form message to SSS. It lands in the business's SSS
  * notifications and, with createClient, becomes a client (lead) in SASTO.
  */
-export async function sendContact(input: { name: string; email?: string; phone?: string; message: string }) {
+export async function sendContact(
+  input: { name: string; email?: string; phone?: string; message: string },
+  visitorIp?: string
+) {
   if (!config.storeSlug) return { demo: true as const };
   const res = await fetch(`${config.apiUrl}/api/v1/stores/${encodeURIComponent(config.storeSlug)}/showcase/contact`, {
     method: "POST",
-    headers: { "content-type": "application/json", accept: "application/json" },
+    // SSS limits messages per visitor and per business; it needs the visitor's IP to tell them apart.
+    headers: { "content-type": "application/json", accept: "application/json", ...(visitorIp ? { "x-sss-visitor-ip": visitorIp } : {}) },
     body: JSON.stringify({ ...input, createClient: true }),
     cache: "no-store",
   });
